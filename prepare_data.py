@@ -25,5 +25,5 @@ def create_dataset(df: pd.DataFrame, dest_path: str, split='test', resize: int =
 
 if __name__ == '__main__':
     df = pd.read_csv('/home/d_korostelev/Projects/super_resolution/data/v1_dataset_DeepRockSR.csv')
-    dest_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/tomo_test_down_4'
-    create_dataset(df, dest_path, resize=4)
+    dest_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/tomo_train'
+    create_dataset(df, dest_path, split='train')
