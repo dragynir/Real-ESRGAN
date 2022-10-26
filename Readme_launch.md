@@ -12,12 +12,7 @@ python scripts/generate_meta_info.py  --input /home/d_korostelev/Projects/super_
 CUDA_VISIBLE_DEVICES=0 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
 
 
-
-/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/tomo
-
-import os
-import shutil
-import pandas as pd
-
-df = pd.read_csv('/home/d_korostelev/Projects/super_resolution/data/v1_dataset_DeepRockSR.csv')
-[shutil.copy(row['path'], os.path.join(dest_path, os.path.basename(row['path']))) for _, row in tqdm(df.iterrows())]
+# Генерация метаинформации
+python scripts/generate_meta_info.py  --input datasets/tomo_test --root datasets/tomo_test  --meta_info datasets/tomo_test/meta_info/meta_info_tomo.txt
+# Прогон изображения
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test/11146.png  -o predictions/11146.png 
