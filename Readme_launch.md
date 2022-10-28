@@ -28,6 +28,8 @@ experiments/train_RealESRNetx4plus_1000k_B12G4/models/net_g_70000.pth
 
 CUDA_VISIBLE_DEVICES=0 python realesrgan/train.py -opt options/train_realesrgan_x4plus.yml --debug
 
+CUDA_VISIBLE_DEVICES=0 nohup python realesrgan/train.py -opt options/train_realesrgan_x4plus.yml &
+
 CUDA_VISIBLE_DEVICES=0 nohup python realesrgan/train.py -opt options/train_realesrgan_x4plus.yml --auto_resume &
 
 
