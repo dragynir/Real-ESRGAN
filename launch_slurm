@@ -6,6 +6,7 @@
 #SBATCH -N 1   # Total number of nodes requested
 #SBATCH -c 4   # CPUs per task
 #SBATCH -t 00:01:00 # Maximal run time (hh:mm:ss) - 1 minute
+. $CONDA_ROOT/etc/profile.d/conda.sh
 
 module load nvidia/cuda
 echo "Current path=`pwd`"
