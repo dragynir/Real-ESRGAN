@@ -17,7 +17,8 @@ echo $SLURM_SUBMIT_DIR
 echo $SLURM_JOB_NODELIST
 echo $SLURM_CPUS_PER_TASK
 echo $SLURM_NTASKS
-sleep 30
-source activate env_realsr
+sleep 5
+conda init bash
+conda activate env_realsr
 cd /home/d_korostelev/Projects/super_resolution/Real-ESRGAN
 python check_gpu.py
