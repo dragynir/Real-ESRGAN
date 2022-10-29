@@ -6,9 +6,10 @@ srun -p gpuserv  --time 00:10:00 --pty bash
 srun -p gpuserv  --time 12:00:00 --pty bash
 
 
+sbatch ./launch_slurm
+
 scancel job_id
 
-cd 
 python scripts/generate_meta_info.py  --input /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR --root /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR  --meta_info datasets/tomo/meta_info/meta_info_tomo.txt
 
 
