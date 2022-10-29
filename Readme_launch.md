@@ -14,7 +14,7 @@ python scripts/generate_meta_info.py  --input /home/d_korostelev/Projects/super_
 
 
 # Первая стадия обучения - realesrnet - обучаем без дискриминатора (на MAE)
-CUDA_VISIBLE_DEVICES=0 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml 
+CUDA_VISIBLE_DEVICES=0,1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml 
 --debug
 
 CUDA_VISIBLE_DEVICES=0 nohup python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --auto_resume &
