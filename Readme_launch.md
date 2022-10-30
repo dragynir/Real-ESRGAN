@@ -1,5 +1,8 @@
 export PATH=/opt/slurm/bin:$PATH
 
+# чтобы после рестарта запускалось
+echo "export PATH=/opt/slurm/bin:$PATH" >> ~/.bashrc
+
 srun -p gpuserv --pty bash
 
 srun -p gpuserv  --time 00:10:00 --pty bash
