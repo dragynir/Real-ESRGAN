@@ -5,7 +5,7 @@
 #SBATCH -o launch.out  # Name of stdout output file (%j expands to %jobId)
 #SBATCH -N 1   # Total number of nodes requested
 #SBATCH -c 4   # CPUs per task
-#SBATCH -t 12:00:00 # Maximal run time (hh:mm:ss) - 1 minute
+#SBATCH -t 28:00:00 # Maximal run time (hh:mm:ss) - 1 minute
 . $CONDA_ROOT/etc/profile.d/conda.sh
 
 module load nvidia/cuda
