@@ -46,4 +46,8 @@ python scripts/generate_meta_info.py  --input datasets/tomo_train --root dataset
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test/11146.png  -o predictions/11146.png 
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr.png 
 
+# Прогон обученной resnet
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr_trained.png --model_path experiments/train_RealESRNetx4plus_1000k_B12G4/models/net_g_70000.pth
+
+# Прогон обученной со второй стадией
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr_trained_gan.png --model_path experiments/train_gan_long/models/net_g_80000.pth
