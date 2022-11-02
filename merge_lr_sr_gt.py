@@ -1,6 +1,7 @@
 import cv2
 import os
 import numpy as np
+from tqdm import tqdm
 
 
 if __name__ == '__main__':
@@ -12,7 +13,7 @@ if __name__ == '__main__':
     results_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_np'
     os.makedirs(results_path, exist_ok=True)
 
-    for img_name in os.listdir(gt_path):
+    for img_name in tqdm(os.listdir(gt_path)):
 
         if 'png' not in img_name:
             continue
@@ -35,5 +36,3 @@ if __name__ == '__main__':
         np.save(os.path.join(results_path, base_name), arr)
 
         # print(arr.shape)
-
-        break
