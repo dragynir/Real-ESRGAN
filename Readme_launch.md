@@ -9,6 +9,8 @@ srun -p gpuserv  --time 00:10:00 --pty bash
 srun -p gpuserv  --time 12:00:00 --pty bash
 
 
+ssh -t -t d_korostelev@84.237.54.162 -L 8881:localhost:8881 ssh gpuserv -L 8881:localhost:8881
+
 sbatch ./launch_slurm
 
 scancel job_id
@@ -51,3 +53,6 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4
 
 # Прогон обученной со второй стадией
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr_trained_gan.png --model_path experiments/train_gan_long/models/net_g_80000.pth
+
+
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/ -o predictions/tomo_test_down_4_sr --model_path experiments/train_gan_long/models/net_g_80000.pth
