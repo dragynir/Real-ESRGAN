@@ -11,7 +11,12 @@ if __name__ == '__main__':
 
     results_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_np'
 
-    for img_name in os.listdir(sr_path):
+    for img_name in os.listdir(gt_path):
+
+        if 'png' not in img_name:
+            continue
+
+        sr_image_name = img_name.split('.')[0] + '_out.png'
         sr = cv2.imread(os.path.join(sr_path, img_name))
         lr = cv2.imread(os.path.join(lr_path, img_name))
         gt = cv2.imread(os.path.join(gt_path, img_name))
