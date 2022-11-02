@@ -10,6 +10,7 @@ if __name__ == '__main__':
     gt_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/tomo_test/'
 
     results_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_np'
+    os.makedirs(results_path, exist_ok=True)
 
     for img_name in os.listdir(gt_path):
 
