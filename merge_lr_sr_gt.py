@@ -16,6 +16,8 @@ if __name__ == '__main__':
         lr = cv2.imread(os.path.join(lr_path, img_name))
         gt = cv2.imread(os.path.join(gt_path, img_name))
 
+        print(sr.shape, lr.shape, gt.shape)
+
         arr = np.stack([lr, gt, sr], axis=1)
 
         print(arr.shape)
