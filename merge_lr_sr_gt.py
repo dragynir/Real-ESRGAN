@@ -28,7 +28,7 @@ if __name__ == '__main__':
         print(lr.shape)
         print(gt.shape)
 
-        arr = np.stack([lr, gt, sr], axis=1)
+        arr = np.concatenate([lr, gt, sr], axis=1)
 
         print(arr.shape)
 
