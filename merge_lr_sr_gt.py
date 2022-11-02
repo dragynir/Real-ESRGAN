@@ -17,7 +17,7 @@ if __name__ == '__main__':
             continue
 
         sr_image_name = img_name.split('.')[0] + '_out.png'
-        sr = cv2.imread(os.path.join(sr_path, img_name))
+        sr = cv2.imread(os.path.join(sr_path, sr_image_name))
         lr = cv2.imread(os.path.join(lr_path, img_name))
         gt = cv2.imread(os.path.join(gt_path, img_name))
         print(img_name)
