@@ -16,20 +16,23 @@ if __name__ == '__main__':
         if 'png' not in img_name:
             continue
 
-        sr_image_name = img_name.split('.')[0] + '_out.png'
+        base_name = img_name.split('.')[0]
+        sr_image_name = base_name + '_out.png'
         sr = cv2.imread(os.path.join(sr_path, sr_image_name))
         lr = cv2.imread(os.path.join(lr_path, img_name))
         gt = cv2.imread(os.path.join(gt_path, img_name))
         
         lr = cv2.resize(lr, (gt.shape[0], gt.shape[1]))
         
-        print(img_name)
-        print(sr.shape)
-        print(lr.shape)
-        print(gt.shape)
+        # print(img_name)
+        # print(sr.shape)
+        # print(lr.shape)
+        # print(gt.shape)
 
         arr = np.concatenate([lr, gt, sr], axis=1)
 
-        print(arr.shape)
+        np.save(os.path.join(results_path, base_name), arr)
+
+        # print(arr.shape)
 
         break
