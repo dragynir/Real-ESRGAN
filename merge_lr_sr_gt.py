@@ -15,7 +15,7 @@ if __name__ == '__main__':
         sr = cv2.imread(os.path.join(sr_path, img_name))
         lr = cv2.imread(os.path.join(lr_path, img_name))
         gt = cv2.imread(os.path.join(gt_path, img_name))
-
+        print(img_name)
         print(sr.shape)
         print(lr.shape)
         print(gt.shape)
