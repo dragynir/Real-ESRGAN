@@ -20,6 +20,9 @@ if __name__ == '__main__':
         sr = cv2.imread(os.path.join(sr_path, sr_image_name))
         lr = cv2.imread(os.path.join(lr_path, img_name))
         gt = cv2.imread(os.path.join(gt_path, img_name))
+        
+        lr = cv2.resize(lr, (gt.shape[0], gt.shape[1]))
+        
         print(img_name)
         print(sr.shape)
         print(lr.shape)
