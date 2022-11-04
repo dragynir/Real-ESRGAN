@@ -56,3 +56,8 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4
 
 
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/ -o predictions/tomo_test_down_4_sr_long --model_path experiments/train_gan_long/models/net_g_latest.pth
+
+# Валидация с помощью modeling_sr
+# Нужно делать валидацию чтобы выбрать лучший чекпоинт т. к. последний может быть не самым лучшим =)
+
+python validate.py --images_path /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_np_long --img_size 500 --rgb True
