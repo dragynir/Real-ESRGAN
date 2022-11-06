@@ -29,7 +29,7 @@ def center_crop(image, crop_size):
 
 
 def crop_by_mask(image):
-    return image[324:-324, 324:-324, :]
+    return image[364:-314, 364:-296, :]
 
 
 if __name__ == '__main__':
