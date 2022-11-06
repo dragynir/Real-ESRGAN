@@ -53,4 +53,3 @@ if __name__ == '__main__':
         image = crop_by_mask(image)
 
         cv2.imwrite(os.path.join(dest_folder, dest_name), image)
-        break
