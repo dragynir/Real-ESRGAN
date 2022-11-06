@@ -1,9 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=jupyter
-#SBATCH --partition=gpu
-#SBATCH --gres=gpu:1
+#SBATCH --partition=gpuserv
 #SBATCH --time=2-00:00:00
-#SBATCH --mem=50GB
 #SBATCH --output=./jupyter.log
 
 . $CONDA_ROOT/etc/profile.d/conda.sh
