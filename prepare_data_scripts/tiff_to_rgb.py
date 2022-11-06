@@ -15,6 +15,19 @@ def tiff2rgb(image):
     return image * 255
 
 
+def center_crop(image, crop_size):
+
+    h, w = image.shape[:2]
+
+    min_h = (h - crop_size) // 2
+    min_w = (w - crop_size) // 2
+
+    max_h = (h + crop_size) // 2
+    max_w = (w + crop_size) // 2
+
+    return image[min_h:max_h, min_w:max_w]
+
+
 if __name__ == '__main__':
 
     tiff_folder = '/home/v_nikitin/data/APS/2022-10-rec-Fokin/loading3_stream_5MP_0659_rec'
@@ -32,5 +45,5 @@ if __name__ == '__main__':
 
         image = tiff2rgb(image)
         # print(image.min(), image.max())
-
+        image = center_crop(image, crop_size=1024)
         cv2.imwrite(os.path.join(dest_folder, dest_name), image)
