@@ -2,6 +2,7 @@ import cv2
 from tifffile import tifffile
 import os
 import numpy as np
+from tqdm import tqdm
 
 
 def tiff2rgb(image):
@@ -21,7 +22,7 @@ if __name__ == '__main__':
 
     os.makedirs(dest_folder, exist_ok=True)
 
-    for name in os.listdir(tiff_folder):
+    for name in tqdm(os.listdir(tiff_folder)):
         if not 'tiff' in name:
             continue
         base_name = name.split('.')[0]
@@ -33,4 +34,3 @@ if __name__ == '__main__':
         print(image.min(), image.max())
 
         cv2.imwrite(os.path.join(dest_folder, dest_name), image)
-        break
