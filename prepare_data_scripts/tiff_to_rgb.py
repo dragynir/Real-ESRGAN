@@ -3,6 +3,17 @@ from tifffile import tifffile
 import os
 import numpy as np
 
+
+def tiff2rgb(image):
+
+    min_v = image.min()
+    max_v = image.max()
+
+    image = (image - min_v) / (max_v - min_v)
+
+    return image * 255
+
+
 if __name__ == '__main__':
 
     tiff_folder = '/home/v_nikitin/data/APS/2022-10-rec-Fokin/loading3_stream_5MP_0659_rec'
@@ -17,6 +28,8 @@ if __name__ == '__main__':
         dest_name = base_name + '.png'
         image = tifffile.imread(os.path.join(tiff_folder, name))
         image = np.stack([image] * 3, axis=-1)
+
+        image = tiff2rgb(image)
         print(image.min(), image.max())
 
         cv2.imwrite(os.path.join(dest_folder, dest_name), image)
