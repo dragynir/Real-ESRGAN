@@ -28,6 +28,10 @@ def center_crop(image, crop_size):
     return image[min_h:max_h, min_w:max_w]
 
 
+def crop_by_mask(image):
+    return image[324:-324, 324:-324, :]
+
+
 if __name__ == '__main__':
 
     tiff_folder = '/home/v_nikitin/data/APS/2022-10-rec-Fokin/loading3_stream_5MP_0659_rec'
@@ -46,5 +50,7 @@ if __name__ == '__main__':
         image = tiff2rgb(image)
         # print(image.min(), image.max())
         # image = center_crop(image, crop_size=1024)
+        image = crop_by_mask(image)
+
         cv2.imwrite(os.path.join(dest_folder, dest_name), image)
         break
