@@ -8,4 +8,4 @@
 conda activate env_realsr
 
 cat /etc/hosts
-jupyter lab --ip=0.0.0.0 --port=8881
+jupyter lab --ip=0.0.0.0 --port=8888
