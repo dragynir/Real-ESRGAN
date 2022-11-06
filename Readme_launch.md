@@ -8,14 +8,42 @@ srun -p gpuserv --pty bash
 srun -p gpuserv  --time 00:10:00 --pty bash
 srun -p gpuserv  --time 12:00:00 --pty bash
 
+ssh -t -t d_korostelev@84.237.52.229 -L 8888:localhost:8881 ssh gpuserv -L 8881:localhost:8881
 
-ssh -t -t d_korostelev@84.237.54.162 -L 8881:localhost:8881 ssh gpuserv -L 8881:localhost:8881
+ssh -t -t d_korostelev@10.2.70.222 -L 8888:localhost:8881 ssh gpuserv -L 8881:localhost:8881
+
 
 sbatch ./launch_slurm
 
 scancel job_id
 
 python scripts/generate_meta_info.py  --input /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR --root /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR  --meta_info datasets/tomo/meta_info/meta_info_tomo.txt
+
+
+
+#SBATCH -J tomo  # Job name
+#SBATCH -p gpuserv # Queue name (another queue - compclass)
+#SBATCH -e launch.err # Name of stderr file (%j expands to %jobId)
+#SBATCH -o launch.out  # Name of stdout output file (%j expands to %jobId)
+#SBATCH -N 1   # Total number of nodes requested
+#SBATCH -c 4   # CPUs per task
+#SBATCH -t 01:00:00 # Maximal run time (hh:mm:ss) - 1 minute
+. $CONDA_ROOT/etc/profile.d/conda.sh
+
+module load nvidia/cuda
+echo "Current path=`pwd`"
+echo "node=`hostname`"
+echo "nproc=`nproc`"
+nvcc --version
+echo $SLURM_JOBID
+echo $SLURM_SUBMIT_DIR
+echo $SLURM_JOB_NODELIST
+echo $SLURM_CPUS_PER_TASK
+echo $SLURM_NTASKS
+nvidia-smi
+conda activate env_realsr
+cd /home/d_korostelev/Projects/super_resolution
+jupyter notebook --port 8881 --no-browser
 
 
 # Первая стадия обучения - realesrnet - обучаем без дискриминатора (на MAE)
