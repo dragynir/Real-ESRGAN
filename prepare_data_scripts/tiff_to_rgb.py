@@ -31,7 +31,7 @@ def center_crop(image, crop_size):
 if __name__ == '__main__':
 
     tiff_folder = '/home/v_nikitin/data/APS/2022-10-rec-Fokin/loading3_stream_5MP_0659_rec'
-    dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/sandstone_fast'
+    dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/sandstone_fast_original'
 
     os.makedirs(dest_folder, exist_ok=True)
 
@@ -45,5 +45,6 @@ if __name__ == '__main__':
 
         image = tiff2rgb(image)
         # print(image.min(), image.max())
-        image = center_crop(image, crop_size=1024)
+        # image = center_crop(image, crop_size=1024)
         cv2.imwrite(os.path.join(dest_folder, dest_name), image)
+        break
