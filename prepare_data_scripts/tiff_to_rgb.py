@@ -31,6 +31,6 @@ if __name__ == '__main__':
         image = np.stack([image] * 3, axis=-1)
 
         image = tiff2rgb(image)
-        print(image.min(), image.max())
+        # print(image.min(), image.max())
 
         cv2.imwrite(os.path.join(dest_folder, dest_name), image)
