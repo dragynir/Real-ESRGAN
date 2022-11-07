@@ -83,7 +83,7 @@ nohup python scripts/extract_subimages.py --input datasets/real/glass/5x --outpu
 python scripts/extract_subimages.py --input datasets/real/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 50 --tiff
 
 python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt
-python scripts/generate_meta_info.py  --input datasets/real/sub/sandstone/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt
+python scripts/generate_meta_info.py  --input datasets/real/sub/sandstone/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt --check
 
 
 [comment]: <> (python scripts/generate_meta_info.py  --input datasets/real/glass/5x datasets/real/sandstone/5x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_train.txt)
