@@ -81,7 +81,7 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4
 
 # Прогон обученной со второй стадией
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr_trained_gan.png --model_path experiments/train_gan_long/models/net_g_80000.pth
-python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/sandstone_fast  -o predictions/sandstone_fast_sr --model_path experiments/train_gan_long/models/net_g_80000.pth
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/sandstone_fast_original  -o predictions/sandstone_fast_sr_original --model_path experiments/train_gan_long/models/net_g_80000.pth
 
 
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/ -o predictions/tomo_test_down_4_sr_long --model_path experiments/train_gan_long/models/net_g_latest.pth
