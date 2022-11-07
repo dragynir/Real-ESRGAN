@@ -3,13 +3,14 @@ import cv2
 import glob
 import os
 from tifffile import tifffile
+from tqdm import tqdm
 
 
 def main(args):
     txt_file = open(args.meta_info, 'w')
     for folder, root in zip(args.input, args.root):
         img_paths = sorted(glob.glob(os.path.join(folder, '*')))
-        for img_path in img_paths:
+        for img_path in tqdm(img_paths):
             status = True
             if args.check:
                 # read the image once for check, as some images may have errors
@@ -24,7 +25,7 @@ def main(args):
             if status:
                 # get the relative path
                 img_name = os.path.relpath(img_path, root)
-                print(img_name)
+                # print(img_name)
                 txt_file.write(f'{img_name}\n')
 
 
