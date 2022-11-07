@@ -1,5 +1,8 @@
 export PATH=/opt/slurm/bin:$PATH
 
+# TODO
+# Надо модифицировать деградационную модель
+
 # чтобы после рестарта запускалось
 echo "export PATH=/opt/slurm/bin:$PATH" >> ~/.bashrc
 

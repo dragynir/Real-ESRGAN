@@ -175,7 +175,7 @@ class RealESRNetModel(SRModel):
             self._dequeue_and_enqueue()
             self.lq = self.lq.contiguous()  # for the warning: grad and param do not obey the gradient layout contract
 
-            print('Image: ', self.gt.max(), self.gt.min())
+            # print('Image: ', self.gt.max(), self.gt.min())
         else:
             # for paired training or validation
             self.lq = data['lq'].to(self.device)
