@@ -15,7 +15,7 @@ def main(args):
                 # read the image once for check, as some images may have errors
                 try:
                     img = tifffile.imread(img_path)
-                except (IOError, OSError) as error:
+                except (IOError, OSError, IndexError) as error:
                     print(f'Read {img_path} error: {error}')
                     status = False
                 if img is None:
