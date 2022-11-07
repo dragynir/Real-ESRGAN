@@ -35,7 +35,7 @@ datasets:
   train:
     name: tomoe
     type: RealESRGANDataset
-    dataroot_gt: datasets/real
+    dataroot_gt: datasets/real/sub
     meta_info: datasets/real/meta_info_train.txt
     io_backend:
       type: disk
