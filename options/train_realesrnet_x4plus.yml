@@ -1,5 +1,5 @@
 # general settings
-name: train_resnet_long
+name: train_resnet_real_exp0
 model_type: RealESRNetModel
 scale: 4
 num_gpu: auto  # auto: can infer from your visible devices automatically. official: 4 GPUs
@@ -35,8 +35,8 @@ datasets:
   train:
     name: tomoe
     type: RealESRGANDataset
-    dataroot_gt: datasets/tomo_train
-    meta_info: datasets/tomo_train/meta_info/meta_info_tomo.txt
+    dataroot_gt: datasets/real
+    meta_info: datasets/real/meta_info_train.txt
     io_backend:
       type: disk
 

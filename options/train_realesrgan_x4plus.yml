@@ -1,5 +1,5 @@
 # general settings
-name: train_gan_long
+name: train_gan_real_exp0
 model_type: RealESRGANModel
 scale: 4
 num_gpu: auto  # auto: can infer from your visible devices automatically. official: 4 GPUs
@@ -38,8 +38,8 @@ datasets:
   train:
     name: tomoe
     type: RealESRGANDataset
-    dataroot_gt: datasets/tomo_train
-    meta_info: datasets/tomo_train/meta_info/meta_info_tomo.txt
+    dataroot_gt: datasets/real
+    meta_info: datasets/real/meta_info_train.txt
     io_backend:
       type: disk
 
@@ -99,7 +99,7 @@ network_d:
 # path
 path:
   # use the pre-trained Real-ESRNet model
-  pretrain_network_g: /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/experiments/train_resnet_long/models/net_g_60000.pth
+  pretrain_network_g: --
   param_key_g: params_ema
   strict_load_g: true
   resume_state: ~

@@ -67,10 +67,15 @@ CUDA_VISIBLE_DEVICES=0,1 nohup python realesrgan/train.py -opt options/train_rea
 CUDA_VISIBLE_DEVICES=0,1 nohup python realesrgan/train.py -opt options/train_realesrgan_x4plus.yml --auto_resume &
 
 
-# Генерация метаинформации
+# Генерация метаинформации benchmark
 python scripts/generate_meta_info.py  --input datasets/tomo_test --root datasets/tomo_test  --meta_info datasets/tomo_test/meta_info/meta_info_tomo.txt
- 
 python scripts/generate_meta_info.py  --input datasets/tomo_train --root datasets/tomo_train  --meta_info datasets/tomo_train/meta_info/meta_info_tomo.txt
+
+# Генерация метаинформации real
+python scripts/generate_meta_info.py  --input datasets/real/glass/5x datasets/real/sandstone/5x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_train.txt
+
+python scripts/generate_meta_info.py  --input datasets/real/glass/1x datasets/real/sandstone/1x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_test.txt
+
 
 # Прогон изображения
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test/11146.png  -o predictions/11146.png 
