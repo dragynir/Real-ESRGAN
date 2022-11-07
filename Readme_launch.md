@@ -2,7 +2,7 @@ export PATH=/opt/slurm/bin:$PATH
 
 # TODO
 # Надо модифицировать деградационную модель
-# Опрерации приводят к None в обучении
+# Опрерации приводят к None в обучении или проблемы с GT min_max
 
 # чтобы после рестарта запускалось
 echo "export PATH=/opt/slurm/bin:$PATH" >> ~/.bashrc

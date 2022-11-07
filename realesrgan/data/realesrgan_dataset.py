@@ -84,7 +84,7 @@ class RealESRGANDataset(data.Dataset):
     def normalize_min_max(self, image):
         min_v = image.min()
         max_v = image.max()
-        image = (image - min_v) / (max_v - min_v)
+        image = (image - min_v) / (max_v - min_v + 1e-16)
         return image
 
     def __getitem__(self, index):
