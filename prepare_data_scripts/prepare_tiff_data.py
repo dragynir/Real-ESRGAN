@@ -12,13 +12,13 @@ if __name__ == '__main__':
     # dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/glass/1x'
 
     # 5x glass
-    tiff_folder = '/home/v_nikitin/data/APS/2022-10-rec-Fokin/glass_beads_7p5x_31MP_010_rec'
-    dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/glass/5x'
+    # tiff_folder = '/home/v_nikitin/data/APS/2022-10-rec-Fokin/glass_beads_7p5x_31MP_010_rec'
+    # dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/glass/5x'
 
     # =================================== sandstone
     # 1x sandstone
-    # tiff_folder = '/home/v_nikitin/data/APS/2022-10/Nikitin_rec/sandstone_1x_091_rec'
-    # dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/sandstone/1x'
+    tiff_folder = '/home/v_nikitin/data/APS/2022-10/Nikitin_rec/sandstone_1x_091_rec'
+    dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/sandstone/1x'
 
     # 5x sandstone
     # tiff_folder = '/home/v_nikitin/data/APS/2022-10/Nikitin_rec/sandstone_7p5x_094_rec'
