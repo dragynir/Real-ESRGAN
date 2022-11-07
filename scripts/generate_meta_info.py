@@ -26,8 +26,6 @@ def main(args):
                 img_name = os.path.relpath(img_path, root)
                 print(img_name)
                 txt_file.write(f'{img_name}\n')
-            else:
-                break
 
 
 if __name__ == '__main__':
