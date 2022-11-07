@@ -2,6 +2,7 @@ import argparse
 import cv2
 import glob
 import os
+from tifffile import tifffile
 
 
 def main(args):
@@ -13,7 +14,7 @@ def main(args):
             if args.check:
                 # read the image once for check, as some images may have errors
                 try:
-                    img = cv2.imread(img_path)
+                    img = tifffile.imread(img_path)
                 except (IOError, OSError) as error:
                     print(f'Read {img_path} error: {error}')
                     status = False
