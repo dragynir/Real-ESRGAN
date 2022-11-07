@@ -72,6 +72,8 @@ python scripts/generate_meta_info.py  --input datasets/tomo_test --root datasets
 python scripts/generate_meta_info.py  --input datasets/tomo_train --root datasets/tomo_train  --meta_info datasets/tomo_train/meta_info/meta_info_tomo.txt
 
 # Генерация метаинформации real
+
+
 python scripts/generate_meta_info.py  --input datasets/real/glass/5x datasets/real/sandstone/5x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_train.txt
 
 python scripts/generate_meta_info.py  --input datasets/real/glass/1x datasets/real/sandstone/1x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_test.txt
