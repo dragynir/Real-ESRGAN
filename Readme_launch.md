@@ -3,6 +3,7 @@ export PATH=/opt/slurm/bin:$PATH
 # TODO
 # Надо модифицировать деградационную модель
 # Опрерации приводят к None в обучении или проблемы с GT min_max
+# datasets/real/sub/sandstone/5x/recon_00004_s1357.tiff List index out of range
 
 # чтобы после рестарта запускалось
 echo "export PATH=/opt/slurm/bin:$PATH" >> ~/.bashrc
@@ -24,7 +25,6 @@ scancel job_id
 python scripts/generate_meta_info.py  --input /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR --root /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR  --meta_info datasets/tomo/meta_info/meta_info_tomo.txt
 
 CUDA_VISIBLE_DEVICES=0 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
-
 
 
 #SBATCH -J tomo  # Job name
