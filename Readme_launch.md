@@ -19,7 +19,7 @@ scancel job_id
 
 python scripts/generate_meta_info.py  --input /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR --root /home/d_korostelev/Projects/super_resolution/data/DeepRockSR/973_2D/images/DeepRockSR-2D/carbonate2D/carbonate2D_test_HR  --meta_info datasets/tomo/meta_info/meta_info_tomo.txt
 
-CUDA_VISIBLE_DEVICES=0,1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
+CUDA_VISIBLE_DEVICES=0 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
 
 
 
@@ -75,8 +75,8 @@ python scripts/generate_meta_info.py  --input datasets/tomo_train --root dataset
 
 # Генерация метаинформации real
 
-nohup python scripts/extract_subimages.py --input datasets/real/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 100 &
-nohup python scripts/extract_subimages.py --input datasets/real/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 50 &
+nohup python scripts/extract_subimages.py --input datasets/real/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 50 --tiff &
+python scripts/extract_subimages.py --input datasets/real/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 50 --tiff
 
 python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt
 python scripts/generate_meta_info.py  --input datasets/real/sub/sandstone/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt

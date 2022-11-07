@@ -96,7 +96,6 @@ class RealESRGANDataset(data.Dataset):
         gt_path = self.paths[index]
 
         # -------------------- read tiff image ---------------------------------#
-        print('Read image:', gt_path)
         img_gt = tifffile.imread(gt_path)
         img_gt = self.normalize_min_max(img_gt)
         img_gt = np.stack([img_gt] * 3, axis=-1)
