@@ -39,8 +39,13 @@ python scripts/generate_meta_info.py  --input datasets/tomo_train --root dataset
 Оригиналы tiff 5x: datasets/real/glass/5x datasets/real/sandstone/5x
 
 # Tiff to RGB with min-max percentile normalization
+5x:
 python scripts/tiff_to_rgb.py --input datasets/real/glass/5x --out datasets/real/rgb/glass/5x
 python scripts/tiff_to_rgb.py --input datasets/real/sandstone/5x --out datasets/real/rgb/sandstone/5x
+
+1x:
+python scripts/tiff_to_rgb.py --input datasets/real/glass/1x --out datasets/real/rgb/glass/1x
+python scripts/tiff_to_rgb.py --input datasets/real/sandstone/1x --out datasets/real/rgb/sandstone/1x
 
 # Create sub images
 python scripts/extract_subimages.py --input datasets/real/rgb/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 350
@@ -49,13 +54,12 @@ python scripts/extract_subimages.py --input datasets/real/rgb/sandstone/5x --out
 # Generate meta-info
 python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x datasets/real/sub/sandstone/5x --root datasets/real/sub datasets/real/sub --meta_info datasets/real/meta_info_train.txt
 
-
-[comment]: <> (python scripts/generate_meta_info.py  --input datasets/real/glass/5x datasets/real/sandstone/5x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_train.txt)
-python scripts/generate_meta_info.py  --input datasets/real/glass/1x datasets/real/sandstone/1x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_test.txt
-
 # Первая стадия обучения - realesrnet - обучаем без дискриминатора (на MAE)
+
+debug проверка:
+CUDA_VISIBLE_DEVICES=0 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
+
 CUDA_VISIBLE_DEVICES=0,1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml 
---debug
 
 CUDA_VISIBLE_DEVICES=0 nohup python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --auto_resume &
 
