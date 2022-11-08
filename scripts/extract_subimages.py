@@ -7,7 +7,6 @@ from basicsr.utils import scandir
 from multiprocessing import Pool
 from os import path as osp
 from tqdm import tqdm
-from tifffile import tifffile
 
 
 def main(args):
@@ -38,7 +37,6 @@ def main(args):
     opt['crop_size'] = args.crop_size
     opt['step'] = args.step
     opt['thresh_size'] = args.thresh_size
-    opt['tiff'] = args.tiff
     extract_subimages(opt)
 
 
@@ -95,11 +93,7 @@ def worker(path, opt):
 
     # remove the x2, x3, x4 and x8 in the filename for DIV2K
     img_name = img_name.replace('x2', '').replace('x3', '').replace('x4', '').replace('x8', '')
-
-    if opt['tiff']:
-        img = tifffile.imread(path)
-    else:
-        img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+    img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
 
     h, w = img.shape[0:2]
     h_space = np.arange(0, h - crop_size + 1, step)
@@ -115,14 +109,10 @@ def worker(path, opt):
             index += 1
             cropped_img = img[x:x + crop_size, y:y + crop_size, ...]
             cropped_img = np.ascontiguousarray(cropped_img)
-
             sub_img_name = osp.join(opt['save_folder'], f'{img_name}_s{index:03d}{extension}')
-            if opt['tiff']:
-                tifffile.imwrite(sub_img_name, cropped_img)
-            else:
-                cv2.imwrite(
-                    sub_img_name, cropped_img,
-                    [cv2.IMWRITE_PNG_COMPRESSION, opt['compression_level']])
+            cv2.imwrite(
+                sub_img_name, cropped_img,
+                [cv2.IMWRITE_PNG_COMPRESSION, opt['compression_level']])
 
     process_info = f'Processing {img_name} ...'
     return process_info
@@ -134,7 +124,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=str, default='datasets/DF2K/DF2K_HR_sub', help='Output folder')
     parser.add_argument('--crop_size', type=int, default=480, help='Crop size')
     parser.add_argument('--step', type=int, default=240, help='Step for overlapped sliding window')
-    parser.add_argument('--tiff', action='store_true', help='Read and write tiff images')
     parser.add_argument(
         '--thresh_size',
         type=int,
