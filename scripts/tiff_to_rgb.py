@@ -1,22 +1,15 @@
 import cv2
 from tifffile import tifffile
 import os
-import numpy as np
 from tqdm import tqdm
+import argparse
+import numpy as np
 
 
-def tiff2rgb(image):
-
-    min_v = image.min()
-    max_v = image.max()
-
-    image = (image - min_v) / (max_v - min_v)
-
-    return image * 255
-
-
-def center_crop(image, crop_size):
-
+def center_crop(image: np.ndarray, crop_size: int) -> np.ndarray:
+    """"
+        Perform center crop with given crop size
+    """
     h, w = image.shape[:2]
 
     min_h = (h - crop_size) // 2
@@ -28,28 +21,45 @@ def center_crop(image, crop_size):
     return image[min_h:max_h, min_w:max_w]
 
 
-def crop_by_mask(image):
-    return image[364:-314, 364:-296, :]
+def tiff2rgb(image: np.ndarray) -> np.ndarray:
+    """"
+    Perform min-max percentile normalization
+    Min-max normalization and 1 %, 99 % percentile clipping
+    """
+    min_v = image.min()
+    max_v = image.max()
+    image = (image - min_v) / (max_v - min_v + 1e-16)
+
+    min_p = np.percentile(image, 1, axis=(0, 1))
+    max_p = np.percentile(image, 99, axis=(0, 1))
+    image = np.clip(image, min_p, max_p)
+
+    return np.clip((image * 255.0).round(), 0, 255)
 
 
-if __name__ == '__main__':
+def main(args):
 
-    tiff_folder = '/home/v_nikitin/data/APS/2022-10-rec-Fokin/loading3_stream_5MP_0659_rec'
-    dest_folder = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/sandstone_fast_original'
+    os.makedirs(args.out, exist_ok=True)
 
-    os.makedirs(dest_folder, exist_ok=True)
-
-    for name in tqdm(os.listdir(tiff_folder)):
+    for name in tqdm(os.listdir(args.input)):
         if not 'tiff' in name:
             continue
         base_name = name.split('.')[0]
         dest_name = base_name + '.png'
-        image = tifffile.imread(os.path.join(tiff_folder, name))
-        image = np.stack([image] * 3, axis=-1)
-
+        image = tifffile.imread(os.path.join(args.input, name))
         image = tiff2rgb(image)
-        # print(image.min(), image.max())
-        # image = center_crop(image, crop_size=1024)
-        image = crop_by_mask(image)
+        cv2.imwrite(os.path.join(args.out, dest_name), image)
 
-        cv2.imwrite(os.path.join(dest_folder, dest_name), image)
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--input',
+        help='Input folder, can be a list.')
+    parser.add_argument(
+        '--out',
+        help='Output folder to write rgb.')
+
+    args = parser.parse_args()
+    main(args)
