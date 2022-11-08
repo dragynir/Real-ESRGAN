@@ -11,7 +11,6 @@ from basicsr.data.transforms import augment
 from basicsr.utils import FileClient, get_root_logger, imfrombytes, img2tensor
 from basicsr.utils.registry import DATASET_REGISTRY
 from torch.utils import data as data
-from tifffile import tifffile
 
 
 @DATASET_REGISTRY.register()
@@ -81,12 +80,6 @@ class RealESRGANDataset(data.Dataset):
         self.pulse_tensor = torch.zeros(21, 21).float()  # convolving with pulse tensor brings no blurry effect
         self.pulse_tensor[10, 10] = 1
 
-    def normalize_min_max(self, image):
-        min_v = image.min()
-        max_v = image.max()
-        image = (image - min_v) / (max_v - min_v + 1e-16)
-        return image
-
     def __getitem__(self, index):
         if self.file_client is None:
             self.file_client = FileClient(self.io_backend_opt.pop('type'), **self.io_backend_opt)
@@ -94,11 +87,23 @@ class RealESRGANDataset(data.Dataset):
         # -------------------------------- Load gt images -------------------------------- #
         # Shape: (h, w, c); channel order: BGR; image range: [0, 1], float32.
         gt_path = self.paths[index]
-
-        # -------------------- read tiff image ---------------------------------#
-        img_gt = tifffile.imread(gt_path)
-        img_gt = self.normalize_min_max(img_gt)
-        img_gt = np.stack([img_gt] * 3, axis=-1)
+        # avoid errors caused by high latency in reading files
+        retry = 3
+        while retry > 0:
+            try:
+                img_bytes = self.file_client.get(gt_path, 'gt')
+            except (IOError, OSError) as e:
+                logger = get_root_logger()
+                logger.warn(f'File client error: {e}, remaining retry times: {retry - 1}')
+                # change another file to read
+                index = random.randint(0, self.__len__())
+                gt_path = self.paths[index]
+                time.sleep(1)  # sleep 1s for occasional server congestion
+            else:
+                break
+            finally:
+                retry -= 1
+        img_gt = imfrombytes(img_bytes, float32=True)
 
         # -------------------- Do augmentation for training: flip, rotation -------------------- #
         img_gt = augment(img_gt, self.opt['use_hflip'], self.opt['use_rot'])
