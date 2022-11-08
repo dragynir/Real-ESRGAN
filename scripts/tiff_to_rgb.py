@@ -52,7 +52,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-
+    # TODO переписать на multithreding
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--input',

@@ -34,20 +34,20 @@ python scripts/generate_meta_info.py  --input datasets/tomo_test --root datasets
 python scripts/generate_meta_info.py  --input datasets/tomo_train --root datasets/tomo_train  --meta_info datasets/tomo_train/meta_info/meta_info_tomo.txt
 
 ## Подготовка real датасета
-/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/
-Оригиналы tiff 1x: /real/glass/1x /real/sandstone/1x
-Оригиналы tiff 5x: /real/glass/5x /real/sandstone/5x
+/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/
+Оригиналы tiff 1x: datasets/real/glass/1x datasets/real/sandstone/1x
+Оригиналы tiff 5x: datasets/real/glass/5x datasets/real/sandstone/5x
 
 # Tiff to RGB with min-max percentile normalization
-python scripts/tiff_to_rgb.py --input /real/glass/5x --out /real/rgb/glass/5x
-python scripts/tiff_to_rgb.py --input /real/sandstone/5x --out /real/rgb/sandstone/5x
+python scripts/tiff_to_rgb.py --input datasets/real/glass/5x --out datasets/real/rgb/glass/5x
+python scripts/tiff_to_rgb.py --input datasets/real/sandstone/5x --out datasets/real/rgb/sandstone/5x
 
+# Create sub images
+python scripts/extract_subimages.py --input datasets/real/rgb/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 350
+python scripts/extract_subimages.py --input datasets/real/rgb/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 350
 
-nohup python scripts/extract_subimages.py --input datasets/real/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 50 --tiff &
-python scripts/extract_subimages.py --input datasets/real/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 50 --tiff
-
-python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt
-python scripts/generate_meta_info.py  --input datasets/real/sub/sandstone/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt --check
+# Generate meta-info
+python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x datasets/real/sub/sandstone/5x --root datasets/real/sub datasets/real/sub --meta_info datasets/real/meta_info_train.txt
 
 
 [comment]: <> (python scripts/generate_meta_info.py  --input datasets/real/glass/5x datasets/real/sandstone/5x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_train.txt)
