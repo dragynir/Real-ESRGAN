@@ -5,7 +5,7 @@ export PATH=/opt/slurm/bin:$PATH
 # Опрерации приводят к None в обучении или проблемы с GT min_max
 # datasets/real/sub/sandstone/5x/recon_00004_s1357.tiff List index out of range
 
-# чтобы после рестарта запускалось
+# Полезные команды
 echo "export PATH=/opt/slurm/bin:$PATH" >> ~/.bashrc
 
 srun -p gpuserv --pty bash
@@ -17,7 +17,6 @@ ssh -t -t d_korostelev@84.237.52.229 -L 8888:localhost:8881 ssh gpuserv -L 8881:
 
 ssh -t -t d_korostelev@10.2.70.222 -L 8888:localhost:8881 ssh gpuserv -L 8881:localhost:8881
 
-
 sbatch ./launch_slurm
 
 scancel job_id
@@ -27,30 +26,32 @@ python scripts/generate_meta_info.py  --input /home/d_korostelev/Projects/super_
 CUDA_VISIBLE_DEVICES=0 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
 
 
-#SBATCH -J tomo  # Job name
-#SBATCH -p gpuserv # Queue name (another queue - compclass)
-#SBATCH -e launch.err # Name of stderr file (%j expands to %jobId)
-#SBATCH -o launch.out  # Name of stdout output file (%j expands to %jobId)
-#SBATCH -N 1   # Total number of nodes requested
-#SBATCH -c 4   # CPUs per task
-#SBATCH -t 01:00:00 # Maximal run time (hh:mm:ss) - 1 minute
-. $CONDA_ROOT/etc/profile.d/conda.sh
 
-module load nvidia/cuda
-echo "Current path=`pwd`"
-echo "node=`hostname`"
-echo "nproc=`nproc`"
-nvcc --version
-echo $SLURM_JOBID
-echo $SLURM_SUBMIT_DIR
-echo $SLURM_JOB_NODELIST
-echo $SLURM_CPUS_PER_TASK
-echo $SLURM_NTASKS
-nvidia-smi
-conda activate env_realsr
-cd /home/d_korostelev/Projects/super_resolution
-jupyter notebook --port 8881 --no-browser
+# Подготовка датасета
 
+## Подготовка benchmark датасета
+python scripts/generate_meta_info.py  --input datasets/tomo_test --root datasets/tomo_test  --meta_info datasets/tomo_test/meta_info/meta_info_tomo.txt
+python scripts/generate_meta_info.py  --input datasets/tomo_train --root datasets/tomo_train  --meta_info datasets/tomo_train/meta_info/meta_info_tomo.txt
+
+## Подготовка real датасета
+/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/
+Оригиналы tiff 1x: /real/glass/1x /real/sandstone/1x
+Оригиналы tiff 5x: /real/glass/5x /real/sandstone/5x
+
+# Tiff to RGB with min-max percentile normalization
+python scripts/tiff_to_rgb.py --input /real/glass/5x --out /real/rgb/glass/5x
+python scripts/tiff_to_rgb.py --input /real/sandstone/5x --out /real/rgb/sandstone/5x
+
+
+nohup python scripts/extract_subimages.py --input datasets/real/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 50 --tiff &
+python scripts/extract_subimages.py --input datasets/real/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 50 --tiff
+
+python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt
+python scripts/generate_meta_info.py  --input datasets/real/sub/sandstone/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt --check
+
+
+[comment]: <> (python scripts/generate_meta_info.py  --input datasets/real/glass/5x datasets/real/sandstone/5x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_train.txt)
+python scripts/generate_meta_info.py  --input datasets/real/glass/1x datasets/real/sandstone/1x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_test.txt
 
 # Первая стадия обучения - realesrnet - обучаем без дискриминатора (на MAE)
 CUDA_VISIBLE_DEVICES=0,1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml 
@@ -71,23 +72,6 @@ CUDA_VISIBLE_DEVICES=0,1 python realesrgan/train.py -opt options/train_realesrga
 CUDA_VISIBLE_DEVICES=0,1 nohup python realesrgan/train.py -opt options/train_realesrgan_x4plus.yml &
 
 CUDA_VISIBLE_DEVICES=0,1 nohup python realesrgan/train.py -opt options/train_realesrgan_x4plus.yml --auto_resume &
-
-
-# Генерация метаинформации benchmark
-python scripts/generate_meta_info.py  --input datasets/tomo_test --root datasets/tomo_test  --meta_info datasets/tomo_test/meta_info/meta_info_tomo.txt
-python scripts/generate_meta_info.py  --input datasets/tomo_train --root datasets/tomo_train  --meta_info datasets/tomo_train/meta_info/meta_info_tomo.txt
-
-# Генерация метаинформации real
-
-nohup python scripts/extract_subimages.py --input datasets/real/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 50 --tiff &
-python scripts/extract_subimages.py --input datasets/real/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 50 --tiff
-
-python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt
-python scripts/generate_meta_info.py  --input datasets/real/sub/sandstone/5x --root datasets/real/sub --meta_info datasets/real/meta_info_train.txt --check
-
-
-[comment]: <> (python scripts/generate_meta_info.py  --input datasets/real/glass/5x datasets/real/sandstone/5x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_train.txt)
-python scripts/generate_meta_info.py  --input datasets/real/glass/1x datasets/real/sandstone/1x --root datasets/real datasets/real  --meta_info datasets/real/meta_info_test.txt
 
 
 # Прогон изображения
