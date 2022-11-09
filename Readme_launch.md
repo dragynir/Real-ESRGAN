@@ -82,9 +82,16 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test/11146.
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr.png 
 
 # Прогон обученной resnet
+
+#benchmark
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr_trained.png --model_path experiments/train_RealESRNetx4plus_1000k_B12G4/models/net_g_70000.pth
 
+#real 
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb/glass/1x/recon_00000.png -o predictions/glass_recon_00000.png --model_path experiments/train_resnet_real_exp0/models/net_g_95000.pth
+
+
 # Прогон обученной со второй стадией
+# benchmark
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr_trained_gan.png --model_path experiments/train_gan_long/models/net_g_80000.pth
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/sandstone_fast_original  -o predictions/sandstone_fast_sr_original --model_path experiments/train_gan_long/models/net_g_80000.pth
 
