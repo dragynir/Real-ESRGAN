@@ -51,6 +51,8 @@ python scripts/tiff_to_rgb.py --input datasets/real/sandstone/1x --out datasets/
 python scripts/extract_subimages.py --input datasets/real/rgb/glass/5x --output datasets/real/sub/glass/5x --crop_size 400 --step 350
 python scripts/extract_subimages.py --input datasets/real/rgb/sandstone/5x --output datasets/real/sub/sandstone/5x --crop_size 400 --step 350
 
+python scripts/extract_subimages.py --input datasets/real/rgb/sandstone/1x --output datasets/real/sub/sandstone/1x --crop_size 1024 --step 1024
+
 # Generate meta-info
 python scripts/generate_meta_info.py  --input datasets/real/sub/glass/5x datasets/real/sub/sandstone/5x --root datasets/real/sub datasets/real/sub --meta_info datasets/real/meta_info_train.txt
 
@@ -95,8 +97,12 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb/glass/1
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/11146.png  -o predictions/11146_sr_trained_gan.png --model_path experiments/train_gan_long/models/net_g_80000.pth
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/sandstone_fast_original  -o predictions/sandstone_fast_sr_original --model_path experiments/train_gan_long/models/net_g_80000.pth
 
-
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4/ -o predictions/tomo_test_down_4_sr_long --model_path experiments/train_gan_long/models/net_g_latest.pth
+
+# real
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/sub/sandstone/1x -o predictions/sandstone_1x --model_path experiments/train_gan_real_exp0/models/net_g_85000.pth
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/sub/sandstone/1x -o predictions/sandstone_1x_40 --model_path experiments/train_gan_real_exp0/models/net_g_40000.pth
+
 
 # Валидация с помощью modeling_sr
 # Нужно делать валидацию чтобы выбрать лучший чекпоинт т. к. последний может быть не самым лучшим =)
