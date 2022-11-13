@@ -7,7 +7,7 @@ import argparse
 def main(args):
 
     os.makedirs(args.out, exist_ok=True)
-    resize_scale = 4
+    resize_scale = 2
     for name in tqdm(os.listdir(args.input)):
         image = cv2.imread(os.path.join(args.input, name))
         new_size = image.shape[0] // resize_scale
