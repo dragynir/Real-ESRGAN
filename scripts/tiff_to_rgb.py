@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 
 def main(args):
-    opt = {'n_thread': args.n_thread, 'input_folder': args.input, 'save_folder': args.output}
+    opt = {'n_thread': args.n_thread, 'input_folder': args.input, 'save_folder': args.out}
     convert_images_to_rgb(opt)
 
 
