@@ -122,7 +122,7 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4
 
 # real
 
-python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb/glass/1x -o predictions/glass/1x --model_path experiments/train_gan_real_exp0/models/net_g_85000.pth
+python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb/glass/1x -o predictions/real/glass/1x --model_path experiments/train_gan_real_exp0/models/net_g_85000.pth
 
 python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/sub/sandstone/1x_1024 -o predictions/sandstone/1x_1024 --model_path experiments/train_gan_real_exp0/models/net_g_85000.pth
 
