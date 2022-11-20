@@ -74,7 +74,7 @@ def worker(path, opt):
     save_folder = opt['save_folder']
     img_name, extension = osp.splitext(osp.basename(path))
 
-    if img_name != 'tiff':
+    if extension != 'tiff':
         return
 
     dest_name = img_name + '.png'
