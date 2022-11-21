@@ -99,7 +99,7 @@ network_d:
 # path
 path:
   # use the pre-trained Real-ESRNet model
-  pretrain_network_g: /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/experiments/train_resnet_long/models/net_g_60000.pth
+  pretrain_network_g: /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/experiments/train_benchmark_resnet_exp0/models/net_g_265000.pth
   param_key_g: params_ema
   strict_load_g: true
   resume_state: ~
