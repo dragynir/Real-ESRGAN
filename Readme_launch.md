@@ -91,4 +91,6 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4
 # Валидация с помощью modeling_sr
 # Нужно делать валидацию чтобы выбрать лучший чекпоинт т. к. последний может быть не самым лучшим =)
 
+merge_lr_sr_gt.py - сначала запускаем
+
 python validate.py --images_path /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_np_long --img_size 500 --rgb True
