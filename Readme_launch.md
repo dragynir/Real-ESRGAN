@@ -93,4 +93,6 @@ python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/tomo_test_down_4
 
 merge_lr_sr_gt.py - сначала запускаем
 
+# в репоозитории с env_catalyst - diffusion model
 python validate.py --images_path /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_np_long --img_size 500 --rgb True
+python validate.py --images_path /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_down_4_sr_exp_0 --img_size 500 --rgb True
