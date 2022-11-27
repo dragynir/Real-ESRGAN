@@ -6,12 +6,16 @@ from tqdm import tqdm
 
 if __name__ == '__main__':
 
-    sr_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_down_4_sr_exp_0 '
+    sr_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_down_4_sr_exp_0'
     lr_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/tomo_test_down_4/'
     gt_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/tomo_test/'
 
     results_path = '/home/d_korostelev/Projects/super_resolution/Real-ESRGAN/predictions/tomo_test_exp0'
     os.makedirs(results_path, exist_ok=True)
+
+    print(len(os.listdir(sr_path)))
+    print(len(os.listdir(lr_path)))
+    print(len(os.listdir(gt_path)))
 
     for img_name in tqdm(os.listdir(gt_path)):
 
