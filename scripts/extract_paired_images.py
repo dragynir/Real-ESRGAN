@@ -64,6 +64,7 @@ def create_image_crops(lr_image, hr_image, mask, crop_size, step, name, out_path
 
     mask_size = crop_size * crop_size
 
+    RESIZE_FACTOR = 4
     index = 0
     for x in h_space:
         for y in w_space:
@@ -81,6 +82,8 @@ def create_image_crops(lr_image, hr_image, mask, crop_size, step, name, out_path
             hr_cropped = hr_image[x_b:x_b + crop_size_b_x, y_b:y_b + crop_size_b_y, ...]
             lr_cropped = lr_image[x:x + crop_size, y:y + crop_size, ...]
             cv2.imwrite(os.path.join(out_path, 'lr_images', f'{name}_{index}.png'), lr_cropped)
+
+            hr_cropped = cv2.resize(hr_cropped, (crop_size * RESIZE_FACTOR, crop_size * RESIZE_FACTOR))
             cv2.imwrite(os.path.join(out_path, 'hr_images', f'{name}_{index}.png'), hr_cropped)
 
 
