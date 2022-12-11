@@ -17,6 +17,9 @@ ssh -t -t d_korostelev@84.237.52.229 -L 8888:localhost:8881 ssh gpuserv -L 8881:
 
 ssh -t -t d_korostelev@10.2.70.222 -L 8888:localhost:8881 ssh gpuserv -L 8881:localhost:8881
 
+ssh -t -t d_korostelev@84.237.52.229 -L 8888:localhost:8885 ssh gpuserv -L 8881:localhost:8885
+
+
 sbatch ./launch_slurm
 
 scancel job_id
