@@ -1,5 +1,6 @@
 # ignored folders
 datasets/*
+notebooks/*
 experiments/*
 predictions/*
 results/*
