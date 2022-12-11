@@ -88,8 +88,8 @@ def worker(pair, opt):
     lr_image_path, hr_image_path = pair
     name = os.path.basename(lr_image_path)
 
-    lr_image = cv2.imread(lr_image_path)
-    hr_image = cv2.imread(hr_image_path)
+    lr_image = cv2.imread(os.path.join('notebooks', lr_image_path))
+    hr_image = cv2.imread(os.path.join('notebooks', hr_image_path))
 
     mask_radius = int((lr_image.shape[0] // 2) * 0.96)
     mask = create_circle_mask(lr_image, mask_radius)
@@ -97,6 +97,7 @@ def worker(pair, opt):
 
 
 if __name__ == '__main__':
+    # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_2_to_5.json --out datasets/real/rgb_cropped/glass
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--mapping',
