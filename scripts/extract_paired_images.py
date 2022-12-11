@@ -93,7 +93,7 @@ def worker(pair, opt):
 
     mask_radius = int((lr_image.shape[0] // 2) * 0.96)
     mask = create_circle_mask(lr_image, mask_radius)
-    create_image_crops(lr_image, hr_image, mask, crop_size=128, step=64, name=name, out_path=opt['save_folder'])
+    create_image_crops(lr_image, hr_image, mask, crop_size=128, step=96, name=name, out_path=opt['save_folder'])
 
 
 if __name__ == '__main__':
