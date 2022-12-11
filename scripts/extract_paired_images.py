@@ -87,7 +87,7 @@ def create_image_crops(lr_image, hr_image, mask, crop_size, step, name, out_path
 def worker(pair, opt):
     lr_image_path, hr_image_path = pair
     name = os.path.basename(lr_image_path)
-
+    hr_image_path = hr_image_path.replace('5x_cropped', '5x_cropped_fullsize')
     lr_image = cv2.imread(os.path.join('notebooks', lr_image_path))
     hr_image = cv2.imread(os.path.join('notebooks', hr_image_path))
 
