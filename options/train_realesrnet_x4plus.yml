@@ -35,11 +35,11 @@ queue_size: 160
 # dataset and data loader settings
 datasets:
   train:
-    name: tomoe
+    name: glass_paired
     type: RealESRGANDataset
-    dataroot_gt: datasets/DF2K
-    dataroot_lq: datasets/DF2K
-    meta_info: datasets/DF2K/meta_info/meta_info_DIV2K_sub_pair.txt
+    dataroot_gt: datasets/real/rgb_cropped/glass
+    dataroot_lq: datasets/real/rgb_cropped/glass
+    meta_info: datasets/real/rgb_cropped/glass/meta_info/glass_paired.txt
     io_backend:
       type: disk
 
