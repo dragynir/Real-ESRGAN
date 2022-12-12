@@ -7,5 +7,4 @@ python scripts/generate_meta_info_pairdata.py --input datasets/real/rgb_cropped/
 CUDA_VISIBLE_DEVICES=1  python realesrgan/train.py -opt options/finetune.yml --auto_resume --debug
 
 
-CUDA_VISIBLE_DEVICES=1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
-
+CUDA_VISIBLE_DEVICES="0,1"  nohup python realesrgan/train.py -opt options/finetune.yml --auto_resume &
