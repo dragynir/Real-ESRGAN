@@ -13,6 +13,8 @@ srun -p gpuserv --pty bash
 srun -p gpuserv  --time 00:10:00 --pty bash
 srun -p gpuserv  --time 12:00:00 --pty bash
 
+jupyter lab --port 8881
+
 ssh -t -t d_korostelev@84.237.52.229 -L 8888:localhost:8881 ssh gpuserv -L 8881:localhost:8881
 
 ssh -t -t d_korostelev@10.2.70.222 -L 8888:localhost:8881 ssh gpuserv -L 8881:localhost:8881
