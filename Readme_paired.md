@@ -2,3 +2,10 @@
 
 
 python scripts/generate_meta_info_pairdata.py --input datasets/real/rgb_cropped/glass/hr_images datasets/real/rgb_cropped/glass/lr_images --meta_info datasets/real/rgb_cropped/glass/meta_info/glass_paired.txt
+
+
+CUDA_VISIBLE_DEVICES=1  python realesrgan/train.py -opt options/finetune.yml --auto_resume --debug
+
+
+CUDA_VISIBLE_DEVICES=1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
+
