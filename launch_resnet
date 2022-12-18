@@ -21,4 +21,4 @@ echo $SLURM_NTASKS
 nvidia-smi
 conda activate env_realsr
 cd /home/d_korostelev/Projects/super_resolution/Real-ESRGAN
-CUDA_VISIBLE_DEVICES="0,1" python realesrgan/train.py -opt options/finetune.yml --auto_resume
+CUDA_VISIBLE_DEVICES=0,1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml
