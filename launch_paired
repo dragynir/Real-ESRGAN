@@ -5,7 +5,7 @@
 #SBATCH -o launch.out  # Name of stdout output file (%j expands to %jobId)
 #SBATCH -N 1   # Total number of nodes requested
 #SBATCH -c 4   # CPUs per task
-#SBATCH -t 28:00:00 # Maximal run time (hh:mm:ss) - 1 minute
+#SBATCH -t 20:00:00 # Maximal run time (hh:mm:ss) - 1 minute
 . $CONDA_ROOT/etc/profile.d/conda.sh
 
 module load nvidia/cuda
@@ -21,4 +21,4 @@ echo $SLURM_NTASKS
 nvidia-smi
 conda activate env_realsr
 cd /home/d_korostelev/Projects/super_resolution/Real-ESRGAN
-CUDA_VISIBLE_DEVICES="0,1" python realesrgan/train.py -opt options/finetune.yml --auto_resume
+CUDA_VISIBLE_DEVICES=0,1 python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml
