@@ -1,6 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=jupyter
 #SBATCH --partition=gpuserv
+#SBATCH -e launch.err # Name of stderr file (%j expands to %jobId)
+#SBATCH -o launch.out  # Name of stdout output file (%j expands to %jobId)
 #SBATCH --time=2-00:00:00
 #SBATCH --output=./jupyter.log
 
