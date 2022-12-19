@@ -14,3 +14,6 @@ CUDA_VISIBLE_DEVICES="0,1"  nohup python realesrgan/train.py -opt options/finetu
 
 
 CUDA_VISIBLE_DEVICES="1" python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb_cropped/glass/lr_images -o predictions/glass/lr_images --model_path experiments/finetune_paired_glass/models/net_g_55000.pth
+
+
+CUDA_VISIBLE_DEVICES="1" python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb_cropped/glass/lr_images -o predictions/glass/lr_images_latest --model_path experiments/finetune_paired_glass/models/net_g_latest.pth
