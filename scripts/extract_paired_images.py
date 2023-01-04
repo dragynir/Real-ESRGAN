@@ -35,6 +35,7 @@ def convert_images_to_rgb(opt):
     pool = Pool(opt['n_thread'])
     for pair in mapping.items():
         pool.apply_async(worker, args=(pair, opt), callback=lambda arg: pbar.update(1))
+        break
     pool.close()
     pool.join()
     pbar.close()
@@ -87,12 +88,25 @@ def create_image_crops(lr_image, hr_image, mask, crop_size, step, name, out_path
             cv2.imwrite(os.path.join(out_path, 'hr_images', f'{name}_{index}.png'), hr_cropped)
 
 
+def crop_borders(image, ind=0):
+    crop_config = {
+        'left': (250, 200),
+        'top': (220, 210),
+        'right': (1835, 6160),
+        'down': (1855, 6370)
+    }
+    return image[crop_config['top'][ind]:crop_config['down'][ind], crop_config['left'][ind]:crop_config['right'][ind]]
+
+
 def worker(pair, opt):
     lr_image_path, hr_image_path = pair
     name = os.path.basename(lr_image_path)
-    hr_image_path = hr_image_path.replace('5x_cropped', '5x_cropped_fullsize')
+    # hr_image_path = hr_image_path.replace('5x_cropped', '5x_cropped_fullsize')
     lr_image = cv2.imread(os.path.join('notebooks', lr_image_path))
     hr_image = cv2.imread(os.path.join('notebooks', hr_image_path))
+
+    lr_image = crop_borders(lr_image)
+    hr_image = crop_borders(hr_image, ind=1)
 
     mask_radius = int((lr_image.shape[0] // 2) * 0.96)
     mask = create_circle_mask(lr_image, mask_radius)

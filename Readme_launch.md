@@ -8,6 +8,8 @@ export PATH=/opt/slurm/bin:$PATH
 # Полезные команды
 echo "export PATH=/opt/slurm/bin:$PATH" >> ~/.bashrc
 
+ssh -L 8881:localhost:8881 gpuserv
+
 srun -p gpuserv --pty bash
 
 srun -p gpuserv  --time 00:10:00 --pty bash
@@ -51,6 +53,11 @@ python scripts/tiff_to_rgb.py --input datasets/real/sandstone/5x --out datasets/
 1x:
 python scripts/tiff_to_rgb.py --input datasets/real/glass/1x --out datasets/real/rgb/glass/1x
 python scripts/tiff_to_rgb.py --input datasets/real/sandstone/1x --out datasets/real/rgb/sandstone/1x
+
+
+2x
+python scripts/tiff_to_rgb.py --input /home/v_nikitin/data/APS/2022-10/Nikitin_rec/sandstone_2x_095_rec --out datasets/real/rgb/sandstone/2x
+
 
 # sandstone fast
 python scripts/tiff_to_rgb.py --input /home/v_nikitin/data/APS/2022-10-rec-Fokin/loading3_stream_5MP_0659_rec --out datasets/test_real/rgb/sandstone_fast
