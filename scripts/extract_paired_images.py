@@ -101,7 +101,10 @@ def crop_borders(image, ind=0):
 def worker(pair, opt):
     lr_image_path, hr_image_path = pair
     name = os.path.basename(lr_image_path)
-    # hr_image_path = hr_image_path.replace('5x_cropped', '5x_cropped_fullsize')
+
+    lr_image_path = os.path.join('datasets/real/rgb/glass/2x', os.path.basename(lr_image_path))
+    hr_image_path = os.path.join('datasets/real/rgb/glass/5x', os.path.basename(hr_image_path))
+
     lr_image = cv2.imread(os.path.join('notebooks', lr_image_path))
     hr_image = cv2.imread(os.path.join('notebooks', hr_image_path))
 
