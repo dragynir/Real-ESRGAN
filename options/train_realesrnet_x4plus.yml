@@ -18,7 +18,7 @@ queue_size: 160
 datasets:
   train:
     name: glass_paired
-    type: RealESRGANDataset
+    type: RealESRGANPairedDataset
     dataroot_gt: datasets/real/rgb_cropped_good/glass
     dataroot_lq: datasets/real/rgb_cropped_good/glass
     meta_info: datasets/real/rgb_cropped_good/glass/meta_info/glass_paired.txt

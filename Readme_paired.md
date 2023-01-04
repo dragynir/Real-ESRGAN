@@ -11,6 +11,14 @@ python scripts/generate_meta_info_pairdata.py --input datasets/real/rgb_cropped/
 python scripts/generate_meta_info_pairdata.py --input datasets/real/rgb_cropped_good/glass/hr_images datasets/real/rgb_cropped_good/glass/lr_images --meta_info datasets/real/rgb_cropped_good/glass/meta_info/glass_paired.txt
 
 
+
+
+
+
+CUDA_VISIBLE_DEVICES=1  python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
+
+
+# finetune
 CUDA_VISIBLE_DEVICES=1  python realesrgan/train.py -opt options/finetune.yml --auto_resume --debug
 
 
