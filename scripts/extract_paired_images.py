@@ -33,7 +33,9 @@ def convert_images_to_rgb(opt):
 
     pbar = tqdm(total=len(mapping), unit='image', desc='Extract')
     pool = Pool(opt['n_thread'])
-    for pair in mapping.items():
+    for ind, pair in enumerate(mapping.items()):
+        if ind != 300:
+            continue
         pool.apply_async(worker, args=(pair, opt), callback=lambda arg: pbar.update(1))
         break
     pool.close()
