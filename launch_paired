@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J tomo  # Job name
 #SBATCH -p gpuserv # Queue name (another queue - compclass)
-#SBATCH -e launch_paired.err # Name of stderr file (%j expands to %jobId)
-#SBATCH -o launch_paired.out  # Name of stdout output file (%j expands to %jobId)
+#SBATCH -e launch_paired_gan.err # Name of stderr file (%j expands to %jobId)
+#SBATCH -o launch_paired_gan.out  # Name of stdout output file (%j expands to %jobId)
 #SBATCH -N 1   # Total number of nodes requested
 #SBATCH -c 4   # CPUs per task
 #SBATCH -t 20:00:00 # Maximal run time (hh:mm:ss) - 1 minute
