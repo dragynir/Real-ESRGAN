@@ -28,7 +28,7 @@ CUDA_VISIBLE_DEVICES="1" python inference_realesrgan.py -n RealESRGAN_x4plus -i 
 
 
 cp -R /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/rgb_cropped_good/glass /home/d_korostelev/Projects/super_resolution/contrastive-unpaired-translation/datasets/glass
-
+python train.py --dataroot ./datasets/glass --name tomo_test_CUT --CUT_mode CUT
 
 # finetune
 CUDA_VISIBLE_DEVICES=1  python realesrgan/train.py -opt options/finetune.yml --auto_resume --debug
