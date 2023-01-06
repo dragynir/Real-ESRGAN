@@ -1,8 +1,8 @@
 
 
 
-
-
+# поставить contrastive на 5x
+# подготовить 1x -> 2x и обучить REAL SR
 
 
 python scripts/generate_meta_info_pairdata.py --input datasets/real/rgb_cropped/glass/hr_images datasets/real/rgb_cropped/glass/lr_images --meta_info datasets/real/rgb_cropped/glass/meta_info/glass_paired.txt
@@ -25,6 +25,10 @@ CUDA_VISIBLE_DEVICES="0,1" python realesrgan/train.py -opt options/train_realesr
 CUDA_VISIBLE_DEVICES=1  python realesrgan/train.py -opt options/train_realesrnet_x4plus.yml --debug
 
 CUDA_VISIBLE_DEVICES="1" python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb_cropped_good/glass/lr_images -o predictions/rgb_cropped_good/glass/lr_images --model_path experiments/train_resnet_paired_exp0/models/net_g_150000.pth
+
+
+CUDA_VISIBLE_DEVICES="1" python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb_cropped_good/glass/lr_images -o predictions/rgb_cropped_good_gan/glass/lr_images --model_path experiments/train_ganres_paired_exp0/models/net_g_100000.pth
+
 
 
 
