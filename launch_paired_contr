@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH -J tomo  # Job name
+#SBATCH -p gpuserv # Queue name (another queue - compclass)
+#SBATCH -e launch_paired_gan.err # Name of stderr file (%j expands to %jobId)
+#SBATCH -o launch_paired_gan.out  # Name of stdout output file (%j expands to %jobId)
+#SBATCH -N 1   # Total number of nodes requested
+#SBATCH -c 4   # CPUs per task
+#SBATCH -t 24:00:00 # Maximal run time (hh:mm:ss) - 1 minute
+. $CONDA_ROOT/etc/profile.d/conda.sh
+
+module load nvidia/cuda
+echo "Current path=`pwd`"
+echo "node=`hostname`"
+echo "nproc=`nproc`"
+nvcc --version
+echo $SLURM_JOBID
+echo $SLURM_SUBMIT_DIR
+echo $SLURM_JOB_NODELIST
+echo $SLURM_CPUS_PER_TASK
+echo $SLURM_NTASKS
+nvidia-smi
+cd /home/d_korostelev/Projects/super_resolution/contrastive-unpaired-translation
+source env_contr/bin/activate
+python train.py --dataroot ./datasets/glass --name tomo_test_CUT --CUT_mode CUT
