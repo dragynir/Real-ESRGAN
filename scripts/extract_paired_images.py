@@ -134,7 +134,7 @@ if __name__ == '__main__':
 
     # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_2_to_5.json --out datasets/real/rgb_cropped_good/glass
 
-    # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_1_to_2_accurate.json --out datasets/real/rgb_cropped_1x_2x_good/glass
+    # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_1_to_2_accurate.json --out /home/d_korostelev/Projects/super_resolution/contrastive-unpaired-translation/datasets/glass_2x
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
