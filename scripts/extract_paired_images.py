@@ -64,7 +64,8 @@ def create_image_crops(lr_image, hr_image, mask, crop_size, step, name, out_path
 
     mask_size = crop_size * crop_size
 
-    RESIZE_FACTOR = 4
+    # RESIZE_FACTOR = 4
+    RESIZE_FACTOR = 2
     index = 0
     for x in h_space:
         for y in w_space:
