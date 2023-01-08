@@ -88,12 +88,21 @@ def create_image_crops(lr_image, hr_image, mask, crop_size, step, name, out_path
 
 
 def crop_borders(image, ind=0):
+    # 1x -> 2x
     crop_config = {
-        'left': (250, 200),
-        'top': (220, 210),
-        'right': (1835, 6160),
-        'down': (1855, 6370)
+        'left': (60, 250),
+        'top': (63, 220),
+        'right': (948, 1840),
+        'down': (980, 1855)
     }
+
+    # 2x -> 5x
+    # crop_config = {
+    #     'left': (250, 200),
+    #     'top': (220, 210),
+    #     'right': (1835, 6160),
+    #     'down': (1855, 6370)
+    # }
     return image[crop_config['top'][ind]:crop_config['down'][ind], crop_config['left'][ind]:crop_config['right'][ind]]
 
 
@@ -101,8 +110,13 @@ def worker(pair, opt):
     lr_image_path, hr_image_path = pair
     name = os.path.basename(lr_image_path)
 
-    lr_image_path = os.path.join('datasets/real/rgb/glass/2x', os.path.basename(lr_image_path))
-    hr_image_path = os.path.join('datasets/real/rgb/glass/5x', os.path.basename(hr_image_path))
+    # 1x -> 2x
+    lr_image_path = os.path.join('datasets/real/rgb/glass/1x', os.path.basename(lr_image_path))
+    hr_image_path = os.path.join('datasets/real/rgb/glass/2x', os.path.basename(hr_image_path))
+
+    # 2x -> 5x
+    # lr_image_path = os.path.join('datasets/real/rgb/glass/2x', os.path.basename(lr_image_path))
+    # hr_image_path = os.path.join('datasets/real/rgb/glass/5x', os.path.basename(hr_image_path))
 
     lr_image = cv2.imread(lr_image_path)
     hr_image = cv2.imread(hr_image_path)
@@ -119,6 +133,9 @@ if __name__ == '__main__':
     # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_2_to_5.json --out datasets/real/rgb_cropped/glass
 
     # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_2_to_5.json --out datasets/real/rgb_cropped_good/glass
+
+    # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_1_to_2_accurate.json --out datasets/real/rgb_cropped_1x_2x_good/glass
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--mapping',
