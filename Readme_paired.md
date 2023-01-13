@@ -30,11 +30,21 @@ CUDA_VISIBLE_DEVICES="1" python inference_realesrgan.py -n RealESRGAN_x4plus -i 
 CUDA_VISIBLE_DEVICES="1" python inference_realesrgan.py -n RealESRGAN_x4plus -i datasets/real/rgb_cropped_good/glass/lr_images -o predictions/rgb_cropped_good_gan/glass/lr_images --model_path experiments/train_ganres_paired_exp0/models/net_g_100000.pth
 
 
-
+# contrastvie
 
 cp -R /home/d_korostelev/Projects/super_resolution/Real-ESRGAN/datasets/real/rgb_cropped_good/glass /home/d_korostelev/Projects/super_resolution/contrastive-unpaired-translation/datasets/glass
 python train.py --dataroot ./datasets/glass --name tomo_train_CUT --CUT_mode CUT
 python test.py --dataroot ./datasets/glass --name tomo_train_CUT --CUT_mode CUT --phase train
+python test.py --dataroot ./datasets/glass --name  tomo_train_CUT_style --CUT_mode CUT --phase train --netD stylegan2 --netG stylegan2
+
+
+python train.py --dataroot ./datasets/glass_2x --name tomo_train_2x_CUT --CUT_mode CUT
+python test.py --dataroot ./datasets/glass_2x --name tomo_train_2x_CUT --CUT_mode CUT --phase train
+python test.py --dataroot ./datasets/glass_2x --name  tomo_train_2x_CUT_style --CUT_mode CUT --phase train --netD stylegan2 --netG stylegan2
+
+
+python train.py --dataroot ./datasets/glass_2x --name tomo_train_2x_CUT_style --CUT_mode CUT --netD stylegan2 --netG stylegan2
+python train.py --dataroot ./datasets/glass_2x --name tomo_train_2x_CUT_style --CUT_mode CUT --netD stylegan2 --netG stylegan2 --lr_policy cosine
 
 # finetune
 CUDA_VISIBLE_DEVICES=1  python realesrgan/train.py -opt options/finetune.yml --auto_resume --debug

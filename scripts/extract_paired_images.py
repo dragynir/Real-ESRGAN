@@ -111,9 +111,17 @@ def worker(pair, opt):
     lr_image_path, hr_image_path = pair
     name = os.path.basename(lr_image_path)
 
+    # sandstone
+
+    # 2x -> 5x
+    lr_image_path = os.path.join('datasets/real/rgb/sandstone/2x', os.path.basename(lr_image_path))
+    hr_image_path = os.path.join('datasets/real/rgb/sandstone/5x_new', os.path.basename(hr_image_path))
+
+
+    # glass
     # 1x -> 2x
-    lr_image_path = os.path.join('datasets/real/rgb/glass/1x', os.path.basename(lr_image_path))
-    hr_image_path = os.path.join('datasets/real/rgb/glass/2x', os.path.basename(hr_image_path))
+    # lr_image_path = os.path.join('datasets/real/rgb/glass/1x', os.path.basename(lr_image_path))
+    # hr_image_path = os.path.join('datasets/real/rgb/glass/2x', os.path.basename(hr_image_path))
 
     # 2x -> 5x
     # lr_image_path = os.path.join('datasets/real/rgb/glass/2x', os.path.basename(lr_image_path))
@@ -122,8 +130,9 @@ def worker(pair, opt):
     lr_image = cv2.imread(lr_image_path)
     hr_image = cv2.imread(hr_image_path)
 
-    lr_image = crop_borders(lr_image)
-    hr_image = crop_borders(hr_image, ind=1)
+    # enable for glass, disable for sandstone
+    # lr_image = crop_borders(lr_image)
+    # hr_image = crop_borders(hr_image, ind=1)
 
     mask_radius = int((lr_image.shape[0] // 2) * 0.96)
     mask = create_circle_mask(lr_image, mask_radius)
@@ -136,6 +145,9 @@ if __name__ == '__main__':
     # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_2_to_5.json --out datasets/real/rgb_cropped_good/glass
 
     # python scripts/extract_paired_images.py --mapping ./notebooks/glass_mapping_1_to_2_accurate.json --out /home/d_korostelev/Projects/super_resolution/contrastive-unpaired-translation/datasets/glass_2x
+
+    # python scripts/extract_paired_images.py --mapping ./notebooks/sandstone_notebooks/sand_mapping_2_to_5.json --out /home/d_korostelev/Projects/super_resolution/contrastive-unpaired-translation/datasets/sandstone
+
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
